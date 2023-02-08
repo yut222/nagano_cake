@@ -1,56 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-    get 'addresses/index'
-    get 'addresses/edit'
-  end
-  namespace :public do
-    get 'orders/new'
-    get 'orders/confirm'
-    get 'orders/thanks'
-    get 'orders/index'
-    get 'orders/show'
-  end
-  namespace :public do
-    get 'cart_items/index'
-  end
-  namespace :public do
-    get 'customers/show'
-    get 'customers/edit'
-    get 'customers/quit'
-  end
-  namespace :public do
-    get 'items/index'
-    get 'items/show'
-  end
-  namespace :public do
-    get 'homes/top'
-    get 'homes/about'
-  end
-  namespace :admin do
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/edit'
-  end
-  namespace :admin do
-    get 'orders/show'
-  end
-  namespace :admin do
-    get 'genres/index'
-    get 'genres/edit'
-  end
-  namespace :admin do
-    get 'items/index'
-    get 'items/new'
-    get 'items/show'
-    get 'items/edit'
-  end
-  namespace :admin do
-    get 'homes/top'
-  end
-
-
-
   # 顧客用
   # URL /customers/sign_in ...
   # パスワード変更は不要なため、skip
@@ -65,6 +14,53 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
+
+
+  # 顧客側 
+  namespace :public do
+    get 'homes/top'
+    get 'homes/about'
+  end
+  
+  scope module: :public do
+    # 商品
+    resources :items, only: [:index, :show]
+    # 会員
+    resource :customers, only: [:show, :edit, :update, :quit, :out]
+    post "/orders/confirm" => "orders#confirm"
+    get "/orders/thanks" => "orders#thanks"
+    # カート
+    resources :cart_items, only: [:index, :create, :update, :destroy, :all_destroy]
+    # 注文
+    resources :orders, only: [:new, :confirm, :thanks, :create, :index, :show]
+    delete "/cart_items/all_destroy" => "cart_items#all_destroy"
+    # 登録先住所
+    resources :addresses, only: [:index, :edi, :createt, :update, :destroy]
+    get "/customers/quit" => "customers#quit"
+    patch "/customers/out" => "customers#out"
+  end
+  
+  
+  # 管理者
+  namespace :admin do
+    get 'homes/top'
+  end
+
+  namespace :admin do
+
+    # 商品
+    resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    # ジャンル
+    resources :genres, only: [:index, :create, :edit, :update]
+    # 会員
+    resources :customers, only: [:index, :show, :edit, :update]
+    # 注文
+    resources :orders, only: [:show, :update]
+    get "/" => "homes#top"
+    # 制作
+    resources :order_details, only: [:update]
+  end
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
