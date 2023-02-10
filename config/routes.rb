@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'homes/top'
+  end
   # 顧客用
   # URL /customers/sign_in ...
   # パスワード変更は不要なため、skip
@@ -42,9 +45,6 @@ Rails.application.routes.draw do
   
   
   # 管理者
-  namespace :admin do
-    get 'homes/top'
-  end
 
   namespace :admin do
 
