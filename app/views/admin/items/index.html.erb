@@ -1,3 +1,5 @@
+<!-- 商品新規登録してからレイアウト確認する -->
+
 <div class="container">
 
   <h2>商品一覧</h2>
@@ -23,7 +25,7 @@
 
 
     <tbody>
-      <% @item.each do |item| %>
+      <% @items.each do |item| %>
       <tr>
         <td><%= item.id %></td>
         <td><%= item.item_name %></td>
@@ -36,6 +38,6 @@
 
 
   </table>
-
+  <!-- kaminari install -->
   <%= paginate @items %>
 </div>
