@@ -19,12 +19,12 @@ Rails.application.routes.draw do
   }
 
 
-  # 顧客側 
+  # 顧客側
   namespace :public do
     get 'homes/top'
     get 'homes/about'
   end
-  
+
   scope module: :public do
     # 商品
     resources :items, only: [:index, :show]
@@ -42,8 +42,8 @@ Rails.application.routes.draw do
     get "/customers/quit" => "customers#quit"
     patch "/customers/out" => "customers#out"
   end
-  
-  
+
+
   # 管理者
 
   namespace :admin do
