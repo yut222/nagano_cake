@@ -8,6 +8,34 @@
     <% end %>
   </div>
 
+  <table class="table table-hover">
+    <thead>
+      <tr class="active">
+        <th>商品ID</th>
+        <th>商品名</th>
+        <th>税抜価格</th>
+        <th>ジャンル</th>
+        <th>ステータス</th>
+        <th></th>
+      </tr>
+    </thead>
 
 
+
+    <tbody>
+      <% @item.each do |item| %>
+      <tr>
+        <td><%= item.id %></td>
+        <td><%= item.item_name %></td>
+        <td><%= item.unit_price_without_tax %></td>
+        <td><%= item.genre.name %></td>
+        <td><%= item.sale_status %></td>
+      </tr>
+      <% end %>
+    </tbody>
+
+
+  </table>
+
+  <%= paginate @items %>
 </div>
