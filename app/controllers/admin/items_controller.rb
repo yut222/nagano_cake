@@ -23,6 +23,18 @@ class Admin::ItemsController < ApplicationController
   end
 
   def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+     @item = Item.find(params[:id])
+     if @item.update(item_params)
+       flash.now[:success] = "商品詳細の変更が完了しました"
+       redirect_to admin_item_path(@item)
+     else
+       flash.now[:danger] = "商品詳細の変更内容に不備があります"
+       render :edit
+     end
   end
 
     private
