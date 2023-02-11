@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-    get 'homes/top'
+    root to: 'homes#top'
   end
   # 顧客用
   # URL /customers/sign_in ...

@@ -1,5 +1,3 @@
-<!-- 商品新規登録してからレイアウト確認する -->
-
 <div class="container">
 
   <h2>商品一覧</h2>
@@ -30,7 +28,7 @@
         <td><%= item.id %></td>
         <td><%= item.name %></td>
         <td><%= item.price %></td>
-        <td><%= item.genre_id %></td>
+        <td><%= item.genre.name %></td>
         <td><%= item.is_active %></td>
       </tr>
       <% end %>
