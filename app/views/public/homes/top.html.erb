@@ -1,2 +1,45 @@
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<div class="container">
+  <strong><%= notice %></strong>
+  <div class="row">
+    <!-- ジャンル検索サイドバー / 共通化 -->
+  	<%= render "public/items/sidebar", genres: @genres %>
+
+    <div class="col-xs-9">
+      <!-- 画像背景 -->
+  		<div class="bg_top">
+        <!-- 白背景/サイト説明文 -->
+  			<div class="bg_top2">
+  			  <p class="font-text">
+  			  	ようこそ、ながのCAKEへ！<br>
+            このサイトは、ケーキ販売のECサイトになります。<br>
+            会員でない方も商品の閲覧はできますが、<br>
+            購入には会員登録が必要になります。
+          </p>
+  			</div>
+  		</div>
+      <!-- 新着商品表示 -->
+          <div class="container new-item">
+            <h2>新着商品</h2>
+            <div class="row">
+              <% @items.first(4).each do |item| %>
+                <div class="recommendation-items">
+                  <%= link_to item_path(item.id) do %> <!-- 画像をクリックしたら商品詳細画面へ遷移 -->
+                    <!-- image_tag いれる？ -->
+                  <% end %>
+                  <p><%= "商品名" %></p>
+                  <p><%= "¥0,000" %></p> <!-- 税込計算式/.floor => 浮動小数点数の切り捨てを行うためFloatクラスのfloorメソッドを使用 -->
+                </div>
+              <% end %>
+            </div>
+        </div>
+      </div>
+  	</div>
+
+  	<div class="row">
+  	  <div class="col-xs-9"></div>
+  	  <div class="col-xs-2">
+  	    <p><%= link_to "全ての商品を見る＞", items_path %></p>
+  	  </div>
+    </div>
+
+  </div>
