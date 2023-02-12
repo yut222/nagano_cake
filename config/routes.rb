@@ -23,9 +23,7 @@ Rails.application.routes.draw do
 
 
   # 顧客側
-  namespace :public do
-    get 'homes/about'
-  end
+
 
   scope module: :public do
     # 商品
@@ -43,6 +41,9 @@ Rails.application.routes.draw do
     resources :addresses, only: [:index, :edi, :createt, :update, :destroy]
     get "/customers/quit" => "customers#quit"
     patch "/customers/out" => "customers#out"
+
+    get "/about" => "homes#about"
+    get "/search" => "items#search"
   end
 
 

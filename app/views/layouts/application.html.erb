@@ -27,10 +27,10 @@
       </nav>
       <nav>
         <ul class="nav navbar-nav navbar-right wf-mplus1p">
-          <!-- 会員でログインしている時 -->
+          <!-- customersでログインしている時 -->
           <% if customer_signed_in? %>
             <li id="youkoso">
-              ようこそ、<%= current_customers.last_name %>さん！
+              ようこそ、<%= current_customer.last_name %>さん！
             </li>
             <li>
               <%= link_to ' マイページ', customers_path %>
@@ -39,12 +39,8 @@
               <%= link_to ' 商品一覧', items_path %>
             </li>
             <li>
-              <%= link_to cart_items_path do %>
-                <div class="icon-flex">
-                  <%= current_customers.cart_items.count %>
-                </div>
-                <i class="cart">カート</i>
-              <% end %>
+              <%= link_to ' カート', cart_items_path %>
+
             </li>
             <li>
               <%= link_to ' ログアウト', destroy_customer_session_path, method: :delete %>
@@ -75,7 +71,7 @@
           <!-- ログインしていない時 -->
             <% else %>
             <li>
-              <%= link_to ' About', public_homes_about_path %>
+              <%= link_to ' About', about_path %>
             </li>
             <li>
               <%= link_to ' 商品一覧', items_path %>
