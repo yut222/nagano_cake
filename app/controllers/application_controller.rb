@@ -5,22 +5,22 @@ class ApplicationController < ActionController::Base
   protected
 
     # ログイン時のパスを変更してる
-    def after_sign_in_path_for(resource_or_scope)
-      if resource_or_scope.is_a?(Admin)
-        admin_items_path(resource)  # 管理者側
-      else
-        items_paths  # 顧客側
-      end
-    end
+    #def after_sign_in_path_for(resource_or_scope)
+      #if resource_or_scope.is_a?(Admin)
+        #admin_items_path(resource)  # 管理者側
+      #else
+        #items_path  # 顧客側
+      #end
+   # end
 
     #ログアウト時のパスの変更
-    def after_sign_out_path_for(resource_or_scope)
-      if resource_or_scope == :admin
-       new_admin_session_path  # 管理者側
-      else
-       admin_session_path  # 顧客側
-      end
-    end
+    #    def after_sign_out_path_for(resource_or_scope)
+    #      if resource_or_scope == :admin
+    #       new_admin_session_path  # 管理者側
+    #      else
+    #       admin_session_path  # 顧客側
+     #     end
+    #    end
 
 
     # 新規登録の保存機能

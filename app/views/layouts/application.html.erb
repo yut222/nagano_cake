@@ -21,9 +21,7 @@
 
     <div class="container">
       <nav class="nav navbar-nav navbar-left">
-        <%= link_to admin_path do %>
-        <%= image_tag "LOGO.jpg", :size =>'120x50' %> <!--Bootstrapで囲えるのかな？-->
-        <% end %>
+        <%= link_to ' LOGO', root_path %>
       </nav>
       <nav>
         <ul class="nav navbar-nav navbar-right wf-mplus1p">
@@ -40,7 +38,6 @@
             </li>
             <li>
               <%= link_to ' カート', cart_items_path %>
-
             </li>
             <li>
               <%= link_to ' ログアウト', destroy_customer_session_path, method: :delete %>
