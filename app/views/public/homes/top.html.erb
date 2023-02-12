@@ -2,21 +2,21 @@
   <strong><%= notice %></strong>
   <div class="row">
     <!-- ジャンル検索サイドバー / 共通化 -->
-  	<%= render "public/items/sidebar", genres: @genres %>
+    <%= render "public/items/sidebar", genres: @genres %>
 
     <div class="col-xs-9">
       <!-- 画像背景 -->
-  		<div class="bg_top">
+      <div class="bg_top">
         <!-- 白背景/サイト説明文 -->
-  			<div class="bg_top2">
-  			  <p class="font-text">
-  			  	ようこそ、ながのCAKEへ！<br>
+        <div class="bg_top2">
+          <p class="font-text">
+            ようこそ、ながのCAKEへ！<br>
             このサイトは、ケーキ販売のECサイトになります。<br>
             会員でない方も商品の閲覧はできますが、<br>
             購入には会員登録が必要になります。
           </p>
-  			</div>
-  		</div>
+        </div>
+      </div>
       <!-- 新着商品表示 -->
           <div class="container new-item">
             <h2>新着商品</h2>
@@ -33,13 +33,13 @@
             </div>
         </div>
       </div>
-  	</div>
+    </div>
 
-  	<div class="row">
-  	  <div class="col-xs-9"></div>
-  	  <div class="col-xs-2">
-  	    <p><%= link_to "全ての商品を見る＞", items_path %></p>
-  	  </div>
+    <div class="row">
+      <div class="col-xs-9"></div>
+      <div class="col-xs-2">
+        <p><%= link_to "全ての商品を見る＞", items_path %></p>
+      </div>
     </div>
 
   </div>
