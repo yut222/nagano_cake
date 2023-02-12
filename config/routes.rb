@@ -6,25 +6,8 @@ Rails.application.routes.draw do
 
   root 'public/homes#top'
 
-  # 顧客用
-  # URL /customers/sign_in ...
-  # パスワード変更は不要なため、skip
-  devise_for :customers,skip: [:passwords], controllers: {
-    registrations: "public/registrations",
-    sessions: 'public/sessions'
-  }
-
-  # 管理者用
-  # URL /admin/sign_in ...
-  # 登録,パスワード変更は不要なため、skip
-  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
-    sessions: "admin/sessions"
-  }
-
 
   # 顧客側
-
-
   scope module: :public do
     # 商品
     resources :items, only: [:index, :show]
@@ -48,7 +31,6 @@ Rails.application.routes.draw do
 
 
   # 管理者
-
   namespace :admin do
 
     # 商品
@@ -63,6 +45,21 @@ Rails.application.routes.draw do
     # 制作
     resources :order_details, only: [:update]
   end
+
+  # 顧客用
+  # URL /customers/sign_in ...
+  # パスワード変更は不要なため、skip
+  devise_for :customers,skip: [:passwords], controllers: {
+    registrations: "public/registrations",
+    sessions: 'public/sessions'
+  }
+
+  # 管理者用
+  # URL /admin/sign_in ...
+  # 登録,パスワード変更は不要なため、skip
+  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
+    sessions: "admin/sessions"
+  }
 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

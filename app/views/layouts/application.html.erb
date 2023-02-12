@@ -13,17 +13,17 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body data-turbolinks="false">
+  <body>
     <div id="wrapper">
 
   <!-- headerの記述 -->
   <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-    <div class="container">
-      <nav class="nav navbar-nav navbar-left">
+
         <%= link_to ' LOGO', root_path %>
-      </nav>
-      <nav>
+      </div>
+      <div>
         <ul class="nav navbar-nav navbar-right wf-mplus1p">
           <!-- customersでログインしている時 -->
           <% if customer_signed_in? %>
@@ -84,8 +84,10 @@
             </li>
           <% end %>
         </ul>
-      </nav>
-    </div>
+      </div>
+
+
+    </nav>
   </header>
 
   <main id="content">
