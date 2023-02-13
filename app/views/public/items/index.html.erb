@@ -13,23 +13,30 @@
           <div class="col-xs-10 col-sm-10 col-md-6 col-lg-3">
             <div class="card w-100 bg-transparent border-0" style="width: 18rem;">
 
-            <%= link_to item_path(item.id) do %>
+              <%= link_to item_path(item.id) do %>
+                <p class="img-wrap">
+                  <% if item.image.attached? %>  <!-- 条件分岐 -->
+                    <%= image_tag item, :image, size: "180x130" %>
+                  <% else %>
+                    <%= image_tag "no_image.jpg" %>
+                  <% end %>
+                </p>
+              <% end %>
 
-            <p class="img-wrap"><%= attachment_image_tag item, :image, size: "180x130", format: "jp", fallback: "no_image.jpg" %></p>
-            <% end %>
-            <% end %>
+              </div>
 
-            <div class="card-body">
-              <p class="item-details item-name card-text"><%= item.name %></p>
-              <% if item.is_active == true %>
-                <p class="item-details card-text">¥<%= (item.price * 1.1).to_i.to_s(:delimited, delimiter: ',') %></p>
-              <% else %>
-                <p class="text-danger font-weight-bold card-text">売り切れ</p>
-            <% end %>
+              <div class="card-body">
+                <p class="item-details item-name card-text"><%= item.name %></p>
+                <% if item.is_active == true %>
+                  <p class="item-details card-text">¥<%= (item.price * 1.1).to_i.to_s(:delimited, delimiter: ',') %></p>
+                <% else %>
+                  <p class="text-danger font-weight-bold card-text">売り切れ</p>
+                <% end %>
+              </div>
 
             </div>
           </div>
-        </div>
           <% end %>
-      </div>
-      <%= paginate(@items) %>
+       </div>
+       <%= paginate(@items) %>
+    </div>

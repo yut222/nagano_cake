@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   # has_many :orders, through: :order_details
 
   # ActiveStrage/画像を持たせる
-  has_one_attached :image  #attached :image の記述でもOK？
+  has_one_attached :image
 
   # バリデーション
   validates :genre_id, :name, :price, presence: true

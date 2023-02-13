@@ -16,4 +16,10 @@ class Public::ItemsController < ApplicationController
     render 'index' # renderを使用してviewファイルを表示したときにはactionを呼び出し処理をしているわけではないため、上記のように必要な変数を用意しておく必要がある、
   end
 
+    private
+
+  def item_params
+    params.require(:item).permit(:image_id)
+  end
+
 end
