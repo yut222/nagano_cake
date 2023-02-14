@@ -16,7 +16,7 @@
               <%= link_to item_path(item.id) do %>
                 <p class="img-wrap">
                   <% if item.image.attached? %>  <!-- 条件分岐 -->
-                    <%= image_tag item, :image, size: "180x130" %>
+                    <%= image_tag item.image, size: "180x130" %>
                   <% else %>
                     <%= image_tag "no_image.jpg" %>
                   <% end %>
