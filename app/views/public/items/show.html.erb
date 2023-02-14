@@ -1,5 +1,46 @@
-<h1>Public::Items#show</h1>
-<p>Find me in app/views/public/items/show.html.erb</p>
 
     <!-- ジャンル検索サイドバー / 共通化 -->
-  	<%= render "sidebar", genres: @genres %>
+    <%= render "sidebar", genres: @genres %>
+
+<div class="row">
+
+    <!-- 画像 -->
+    <div class="col-xs-4 col-xs-offset-2 product-show">
+      <% if @item.image.attached? %>
+        <%= image_tag @item.image, size: "340x220" %>
+      <% else %>
+        <%= image_tag "no_image.jpg" %>
+      <% end %>
+    </div>
+
+    <!-- タイトル -->
+    <div class="col-xs-6 product-show">
+      <div class="product-description">
+        <div class="field product-name">
+          <h2><%= @item.name %></h2>
+        </div>
+        <!-- 説明 -->
+        <div class="field">
+          <%= @item.introduction %>
+        </div>
+        <!-- 価格 -->
+        <h3 class="item-price">
+          ￥
+          <%= (@item.price * 1.1).to_i %>
+          <span>（税込）</span>
+        </h3>
+        <!-- 個数選択 -->
+        <%= form_with(model: @cart_item, url: cart_items_path, method: :post, local: true) do |f| %>
+          <%= f.label :amount, "個数選択" %>
+            <%= f.number_field :amount, min: 1, max: 100, placeholder: '個数選択', class:"amount-select-form" %>
+            <%= f.hidden_field :id, :value => @item.id %>
+            <%= f.submit "カートに入れる", class: "btn btn-primary" %>
+          <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <%= flash[:into_cart_error] %>
+    </div>
+
+</div>
