@@ -20,7 +20,6 @@ Rails.application.routes.draw do
     resources :cart_items, only: [:index, :create, :update, :destroy, :all_destroy]
     # 注文
     resources :orders, only: [:new, :confirm, :thanks, :create, :index, :show]
-
     # 登録先住所
     resources :addresses, only: [:index, :edi, :createt, :update, :destroy]
     get "/customers/quit" => "customers#quit"
