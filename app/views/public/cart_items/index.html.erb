@@ -26,18 +26,14 @@
             <tbody>
               <tr class="brown-border">
                 <td class="align-middle">
-
-
-<% if cart_item.item.image.attached? %>
-    <%= image_tag cart_item.item.image, size: "50x50" %>
-  <% else %>
-    画像がありません
-  <% end %>
-
-
+                  <% if cart_item.item.image.attached? %>
+                      <%= image_tag cart_item.item.image, size: "50x50" %>
+                  <% else %>
+                    <%= image_tag "no_image.jpg" %>
+                  <% end %>
                   <span><%= cart_item.item.name %></span>
                 </td>
-                <td class="align-middle"><%= (cart_item.item.price * 1.1).floor %></td>
+                <td class="align-middle"><%= (cart_item.item.price * 1.1).floor.to_s(:delimited, delimiter: ',') %></td>
                 <td class="align-middle" style="width: 130px;">
                   <%= form_for(cart_item) do |f| %>
                   <div class="row">
@@ -61,7 +57,7 @@
 
       <div class="row my-3">
         <div class="offset-9">
-          <strong class="red-border px-3 pb-1">合計金額 <%= @total_price %>円</strong>
+          <strong class="red-border px-3 pb-1">合計金額 <%= @total_price.to_s(:delimited, delimiter: ',') %></strong>
         </div>
       </div>
 

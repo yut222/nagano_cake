@@ -11,9 +11,9 @@ class Public::CartItemsController < ApplicationController
   def create
     @cart_item = CartItem.new(cart_item_params)
     @cart_item.customer_id = current_customer.id
-#    @cart_item.item_id = params[:item_id]
 
-    if @cart_item.save!
+
+    if @cart_item.save!  # ビックリマークとつけるとエラーがそこで止まってくれる
       flash[:notice] = "#{@cart_item.item.name}をカートに追加しました。"
       redirect_to cart_items_path
     else
@@ -26,12 +26,12 @@ class Public::CartItemsController < ApplicationController
     @cart_item = CartItem.find(params[:id])
     @cart_item.update(cart_item_params)
     redirect_to cart_items_path
-   end
+  end
 
   def destroy
     cart_item = CartItem.find(params[:id])
     cart_item.destroy
-    redirect_to items_path
+    redirect_to cart_items_path
   end
 
   def destroy_all
