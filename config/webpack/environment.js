@@ -1,6 +1,6 @@
 const { environment } = require('@rails/webpacker')
 
-
+// Bootstrap導入
 const webpack = require('webpack')
 environment.plugins.prepend(
   'Provide',
