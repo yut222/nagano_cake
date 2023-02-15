@@ -16,10 +16,11 @@ Rails.application.routes.draw do
     post "/orders/confirm" => "orders#confirm"
     get "/orders/thanks" => "orders#thanks"
     # カート
+    delete "/cart_items/all_destroy" => "cart_items#all_destroy"
     resources :cart_items, only: [:index, :create, :update, :destroy, :all_destroy]
     # 注文
     resources :orders, only: [:new, :confirm, :thanks, :create, :index, :show]
-    delete "/cart_items/all_destroy" => "cart_items#all_destroy"
+
     # 登録先住所
     resources :addresses, only: [:index, :edi, :createt, :update, :destroy]
     get "/customers/quit" => "customers#quit"

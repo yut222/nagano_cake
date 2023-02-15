@@ -34,9 +34,11 @@ class Public::CartItemsController < ApplicationController
     redirect_to cart_items_path
   end
 
-  def destroy_all
-    current_customer.cart_items.destroy_all
-    redirect_to cart_items_path
+  def all_destroy
+    @cart_items = current_customer.cart_items
+    @cart_items.destroy_all
+    flash[:alert] = "カートの商品を全て削除しました"
+    redirect_back(fallback_location: root_path)
   end
 
     private

@@ -5,7 +5,7 @@
       </div>
 
       <div class="ml-auto">
-        <%= link_to "カートを空にする", cart_items_path, method: :delete, class: "btn btn-sm btn-danger" %>
+        <%= link_to "カートを空にする", cart_items_all_destroy_path, method: :delete, class: "btn btn-sm btn-danger" %>
       </div>
     </div>
 
@@ -63,7 +63,7 @@
 
     <div class="row">
       <div class="offset-1 col-2">
-        <%= link_to "買い物を続ける", items_path, class: "btn btn-outline-danger mt-5" %>
+        <%= link_to "買い物を続ける", root_path, class: "btn btn-outline-danger mt-5" %>
       </div>
       <% if @cart_items != [] %>
       <div class="offset-6">
