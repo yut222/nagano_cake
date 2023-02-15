@@ -1,8 +1,8 @@
 class CartItem < ApplicationRecord
 
   #アソシエーション
-  belongs_to :customers
-  belongs_to :items
+  belongs_to :customer
+  belongs_to :item
 
   # バリデーション
   validates :amount, presence: true
