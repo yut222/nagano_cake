@@ -10,10 +10,16 @@
             <th scope="row">支払い方法</th>
             <td>
               <div class="radio">
-                <%= f.radio_button :payment, 0 %>
-                <label class="payment-label"> クレジットカード</label>
-                <%= f.radio_button :payment, 1 %>
-                <label class="payment-label">銀行振込</label>
+                
+
+<%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
+<%= f.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %>
+
+              </div>
+              <div class="radio">
+
+<%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
+<%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer]%>
               </div>
             </td>
           </tr>
@@ -21,18 +27,20 @@
             <th scope="row">お届け先</th>
             <td>
               <div class="radio">
-                <%= radio_button_tag(:selected_address, :radio1) %>
-                <%= label_tag(:selected_address, "ご自身の住所") %>
-                <p>&emsp;<%= @customer.postal_code %><%= @customer.address %></p>
-                <p>&emsp;<%= @customer.first_name %><%= @customer.last_name %></p>
+                <%= f.radio_button :address, "1", checked: true %>
+                <%= f.label :"ご自身の住所"%><br>
+                <%= "〒#{current_customer.postal_code} #{current_customer.address}"%><br>
+                <%= "#{current_customer.last_name}#{current_customer.first_name}"%>
               </div>
-              <div class="radio">
-                <%= radio_button_tag(:selected_address, :radio2) %>
-                <%= label_tag(:selected_address, "登録済住所から選択") %>
-                <p>&emsp;
-                <%= collection_select(:regestrated_address, :regestrated_address, current_customer.addresses.all, :id, :address, prompt: "住所を選択してください" )%>
-                </p>
-              </div>
+
+          <% if @address != [] %>
+          <div class="radio">
+            <%= f.radio_button :address, "2"%>
+             <%= f.label :"登録済住所からの選択"%><br>
+             <%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_display) %>
+          </div>
+          <% end %>
+
               <div class="radio">
                 <%= radio_button_tag(:selected_address, :radio3) %>
                 <%= label_tag(:selected_address, "新しいお届け先") %>
