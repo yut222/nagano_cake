@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
 
   # アソシエーション
-  belongs_to :customers
+  belongs_to :customer
   has_many :order_details, dependent: :destroy
 
   # バリデーション
