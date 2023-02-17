@@ -66,13 +66,13 @@
         <tr>
           <th  class="info">支払方法</th>
           <td class="text-left">
-            <%= @order.payment_method %>
+            <%= @order.payment_method_i18n %>
           </td>
         </tr>
         <tr>
           <th  class="info">お届け先</th>
           <td class="text-left">
-            <%= "#{@order.postal_code} #{@order.address} 　#{@order.name}" %>
+            <%= @order.address_display %>
           </td>
         </tr>
         </thead>

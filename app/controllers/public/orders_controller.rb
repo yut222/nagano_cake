@@ -7,7 +7,7 @@ class Public::OrdersController < ApplicationController
     @order = Order.new
     @addresses = current_customer.addresses
   end
-  
+
   #情報入力画面でボタンを押して情報をsessionに保存
   def create
     session[:payment_method] = params[:payment_method]
@@ -27,15 +27,26 @@ class Public::OrdersController < ApplicationController
   # 購入確認画面
   def confirm
     @cart_items = current_customer.cart_items.all
+
     @order = Order.new(order_params)
+    @address = Address.find(params[:order][:address_id])
+    @order.postal_code = @address.postal_code
+    @order.address = @address.address
+    @order.name = @address.name
     @order.shipping_cost = 800  # 送料
-#   birding.pry 
+    
+    
+    
+
+
+#   birding.pry
 
 # viewに記述(each,商品合計,請求金額)
 #    @sum = 0
 #    @subtotals = @cart_items.map { |cart_item| (Item.find(cart_item.item_id).price * 1.1 * cart_item.amount).to_i }
 #    @sum = @subtotals.sum
 #    session[:sum] = @sum
+
   end
 
 

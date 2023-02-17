@@ -9,17 +9,13 @@
           <tr>
             <th scope="row">支払い方法</th>
             <td>
-              <div class="radio">
-                
-
-<%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
-<%= f.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %>
-
+              <div class="radio">  <!-- enum カリキュラム -->
+                <%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
+                <%= f.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %>
               </div>
-              <div class="radio">
-
-<%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
-<%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer]%>
+              <div class="radio">  <!-- enmu カリキュラム -->
+                <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
+                <%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer]%>
               </div>
             </td>
           </tr>
@@ -33,16 +29,16 @@
                 <%= "#{current_customer.last_name}#{current_customer.first_name}"%>
               </div>
 
-          <% if @address != [] %>
-          <div class="radio">
-            <%= f.radio_button :address, "2"%>
-             <%= f.label :"登録済住所からの選択"%><br>
-             <%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_display) %>
-          </div>
-          <% end %>
+              <% if @address != [] %>
+                <div class="radio">
+                  <%= f.radio_button :address, "2"%>
+                   <%= f.label :"登録済住所からの選択"%><br>
+                   <%= f.select :address_id, options_from_collection_for_select(Address.all, :customer_id, :address_display) %>
+                </div>
+              <% end %>
 
               <div class="radio">
-                <%= radio_button_tag(:selected_address, :radio3) %>
+                <%= f.radio_button :address, "3"%>
                 <%= label_tag(:selected_address, "新しいお届け先") %>
                  <div class="field">
                   <label class="postal-code-label">郵便番号(ハイフンなし)</label>
