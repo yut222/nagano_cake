@@ -27,17 +27,20 @@ class Public::OrdersController < ApplicationController
   # 購入確認画面
   def confirm
     @cart_items = current_customer.cart_items.all
-
     @order = Order.new(order_params)
+    @order.shipping_cost = 800  # 送料
+
+  if params[:order][:selected_address] == 1
+    @order.postal_code = current_customer.postal_code
+    @order.address     = current_customer.address
+    @order.name        = current_customer.last_name + current_customer.first_name
+
+  elsif params[:order][:selected_address] ==2
     @address = Address.find(params[:order][:address_id])
     @order.postal_code = @address.postal_code
     @order.address = @address.address
     @order.name = @address.name
-    @order.shipping_cost = 800  # 送料
-    
-    
-    
-
+  end
 
 #   birding.pry
 
