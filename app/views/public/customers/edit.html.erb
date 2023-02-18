@@ -20,7 +20,7 @@
         <%= f.label "郵便番号", class: "col-4" %>
         <%= f.text_field :postal_code, class:"col-4" %>
       </div>
-
+s
       <div class="form-group row">
         <%= f.label "住所", class: "col-4" %>
         <%= f.text_field :address, class:"col-8" %>
@@ -38,7 +38,7 @@
 
       <div>
         <%= f.submit "編集内容を保存", class:"btn btn-success mr-5" %>
-        <%= f.submit "退会する", class: "btn btn-danger ml-5" %>
+        <%= link_to "退会する", customers_quit_path, class: "btn btn-danger ml-5" %>
       </div>
       <% end %>
       </div>
