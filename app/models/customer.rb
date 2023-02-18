@@ -13,6 +13,10 @@ class Customer < ApplicationRecord
   validates :last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :email, presence: true
 
 
+  def address_display
+  '〒' + postal_code + ' ' + address + ' ' + last_name + first_name
+  end
+
   # 退会
   def active_for_authentication?
     super && (self.is_deleted == false)

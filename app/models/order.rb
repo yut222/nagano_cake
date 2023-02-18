@@ -5,10 +5,10 @@ class Order < ApplicationRecord
   has_many :order_details, dependent: :destroy
 
   # バリデーション
-  validates :customer_id, :address, :name, :shipping_cost,
+  validates :address, :name, :shipping_cost,
             :total_payment, :payment_method,
              presence: true
-  validates :postal_code, length: {is: 7}, numericality: { only_integer: true }
+  validates :postal_code, length: {is: 7}
   validates :shipping_cost, :total_payment, numericality: { only_integer: true }
 
   # enum設定
@@ -17,7 +17,7 @@ class Order < ApplicationRecord
 
   # devise enum? 記述を簡単に  # お届け先
   def address_display
-  '〒' + postal_code + ' ' + address + ' ' + name
+    '〒' + postal_code + ' ' + address + ' ' + name
   end
 
 end

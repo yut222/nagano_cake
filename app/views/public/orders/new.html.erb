@@ -25,8 +25,7 @@
               <div class="radio">
                 <%= f.radio_button :selected_address, "1", checked: true %>
                 <%= f.label :"ご自身の住所"%><br>
-                <%= "〒#{current_customer.postal_code} #{current_customer.address}"%><br>
-                <%= "#{current_customer.last_name}#{current_customer.first_name}"%>
+                <%= current_customer.address_display %><br>
               </div>
 
               <% if @address != [] %>

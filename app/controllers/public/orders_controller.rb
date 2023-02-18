@@ -9,20 +9,36 @@ class Public::OrdersController < ApplicationController
   end
 
   #情報入力画面でボタンを押して情報をsessionに保存
-  def create
-    session[:payment_method] = params[:payment_method]
-    if params[:select] == "select_address"
-      session[:address] = params[:address]
-    elsif params[:select] == "my_address"
-      session[:address] ="〒" +current_customer.postal_code+current_customer.address+current_customer.last_name+current_customer.first_name
+
+# 購入を確定します
+def create # Order に情報を保存します
+  cart_items = current_customer.cart_items.all
+# ログインユーザーのカートアイテムをすべて取り出して cart_items に入れます
+  @order = current_customer.orders.new(order_params)
+# 渡ってきた値を @order に入れます
+  if @order.save
+# ここに至るまでの間にチェックは済ませていますが、念の為IF文で分岐させています
+    cart_items.each do |cart|
+# 取り出したカートアイテムの数繰り返します
+# order_detail にも一緒にデータを保存する必要があるのでここで保存します
+      order_detail = OrderDetail.new
+      order_detail.item_id = cart.item.id
+      order_detail.price = cart.item.price
+      order_detail.order_id = @order.id
+      order_detail.amount = cart.amount
+# 購入が完了したらカート情報は削除するのでこちらに保存します
+      order_detail.price = cart.item.price
+# カート情報を削除するので item との紐付けが切れる前に保存します
+      order_detail.save
     end
-    if session[:address].present? && session[:payment_method].present?
-      redirect_to orders_confirm_path
-    else
-      flash[:order_new] = "支払い方法と配送先を選択して下さい"
-      redirect_to new_order_path
-    end
+    cart_items.destroy_all    # 購入後はカート内商品削除
+    redirect_to orders_thanks_path
+
+# ユーザーに関連するカートのデータ(購入したデータ)をすべて削除します(カートを空にする)
+  else
+    render :new
   end
+end
 
   # 購入確認画面
   def confirm
@@ -30,12 +46,12 @@ class Public::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.shipping_cost = 800  # 送料
 
-  if params[:order][:selected_address] == 1
+  if params[:order][:selected_address] == "1"
     @order.postal_code = current_customer.postal_code
     @order.address     = current_customer.address
     @order.name        = current_customer.last_name + current_customer.first_name
 
-  elsif params[:order][:selected_address] ==2
+  elsif params[:order][:selected_address] == "2"
     @address = Address.find(params[:order][:address_id])
     @order.postal_code = @address.postal_code
     @order.address = @address.address
@@ -54,8 +70,8 @@ class Public::OrdersController < ApplicationController
 
 
   def thanks
-    # 購入後はカート内商品削除
-		cart_items.destroy_all
+
+
   end
 
   def index
@@ -68,7 +84,7 @@ class Public::OrdersController < ApplicationController
     private
 
   def order_params
-    params.require(:order).permit(:id, :customer_id, :postal_code, :address, :name, :shipping_cost, :payment_method)
+    params.require(:order).permit(:postal_code, :address, :name, :shipping_cost, :payment_method, :total_payment)
   end
 
   def address_params
