@@ -6,12 +6,12 @@
 
 
 
-    <%= form_with model: @customer, url: admin_customer_path(@customer.id), method: :PATCH do |f| %>
+    <%= form_with model: @customer, url: admin_customer_path(@customer.id), method: :patch do |f| %>
       <table>
             <div class="field">
               <tr>
               <th><%= f.label :会員ID ,class: "col-xs-3"%></th>
-              <td><%= f.text_field :id, autofocus: true, autocomplete: "id"%></td>
+              <td><%= f.label :"#{@customer.id}" %></td>
               </tr>
             </div>
             <div class="field">
@@ -60,8 +60,10 @@
               <tr>
                 <th><%= f.label "会員ステータス" %></th>
                 <td>
-                  <%= f.radio_button :is_deleted, "有効" ,checked: "checked"%> 有効
-                  <%= f.radio_button :is_deleted, "退会" %> 退会
+                　<%= f.radio_button :is_deleted, false %>
+                　<%= f.label :is_deleted, "有効"%>
+                　<%= f.radio_button :is_deleted, true %>
+                　<%= f.label :is_deleted, "退会" %>
                 </td>
               </tr>
             </div>

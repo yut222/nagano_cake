@@ -4,12 +4,12 @@ class OrderDetail < ApplicationRecord
   belongs_to :order
   belongs_to :item
 
-  # enum設定 # enumの記述方式
-  enum making_status: {"製作不可": 0,"製作待ち": 1,"製作中": 2,"製作完了": 3}
 
   # バリデーション
-  validates :item_id, :order_id, :amount,
-            :price, presence: true
+  validates :item_id, :order_id, :amount, :price, presence: true
   validates :price, :amount, numericality: { only_integer: true }
+
+  # enum設定 # enumの記述方式
+  enum making_status: {make_no: 0, make_wait: 1, making: 2, make_done: 3}
 
 end
