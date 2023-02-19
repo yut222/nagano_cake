@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html class="fontawesome-i2svg-active fontawesome-i2svg-complete">
+<html>
   <head>
-    <title>NaganoCake</title>
+    <title class="text-success">NaganoCake</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,108 +12,94 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>  <!-- BootStrap -->
   </head>
 
-  <body>
+  <body data-turbolinks="false">
+    <div id="wrapper">
     <!-- headerの記述 -->
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-          <a class="navbar-brand" href="/">
-            <span>LOGO</span>
-          </a>
+      <header class="shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <%= link_to root_path do %>
+          <%= image_tag "LOGO.jpg", size: "100x50" %>
+          <% end %>
 
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ml-auto">
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <!-- 会員でログインしている時 -->
               <% if customer_signed_in? %>
-                <li class="nav-item">
-                ようこそ、<%= current_customer.last_name %>さん！
+                <li>
+                  ようこそ、<%= current_customer.last_name %>さん！
                 </li>
-
-                <li class="nav-item">
-                  <%= link_to customers_path, class: 'nav-link text-light' do %>
-                    マイページ
-                  <% end %>
+                <li>
+                  <%= link_to ' マイページ', customers_path %>
                 </li>
-
-              <% end %>
-
-
-          <ul>
-            <!-- customersでログインしている時 -->
-            <% if customer_signed_in? %>
-              <li>
-                ようこそ、<%= current_customer.last_name %>さん！
-              </li>
-              <li>
-                <%= link_to ' マイページ', customers_path %>
-              </li>
-              <li>
-                <%= link_to ' 商品一覧', items_path %>
-              </li>
-              <li>
-                <%= link_to ' カート', cart_items_path %>
-              </li>
-              <li>
-                <%= link_to ' ログアウト', destroy_customer_session_path, method: :delete %>
-              </li>
-              <li>
-                <input name="search" placeholder="search                    🔍">
-              </li>
+                <li>
+                  <%= link_to ' 商品一覧', items_path %>
+                </li>
+                <li>
+                  <%= link_to ' カート', cart_items_path %>
+                </li>
+                <li>
+                  <%= link_to ' ログアウト', destroy_customer_session_path, method: :delete %>
+                </li>
+                <li>
+                  <input name="search" placeholder="search                    🔍">
+                </li>
               <!-- 管理者でログインしている時 -->
               <% elsif admin_signed_in?%>
-              <li>
-                <%= link_to ' 商品一覧', admin_items_path %>
-              </li>
-              <li>
-                <%= link_to ' 会員一覧', admin_customers_path %>
-              </li>
-              <li>
-                <%= link_to ' 注文履歴一覧', admin_path %>
-              </li>
-              <li>
-                <%= link_to ' ジャンル一覧', admin_genres_path %>
-              </li>
-              <li>
-                <%= link_to ' ログアウト', destroy_admin_session_path, method: :delete %>
-              </li>
-              <li>
-                <input name="search" placeholder="Search                    🔍">
-              </li>
+                <li>
+                  <%= link_to ' 商品一覧', admin_items_path %>
+                </li>
+                <li>
+                  <%= link_to ' 会員一覧', admin_customers_path %>
+                </li>
+                <li>
+                  <%= link_to ' 注文履歴一覧', admin_path %>
+                </li>
+                <li>
+                  <%= link_to ' ジャンル一覧', admin_genres_path %>
+                </li>
+                <li>
+                  <%= link_to ' ログアウト', destroy_admin_session_path, method: :delete %>
+                </li>
+                <li>
+                  <input name="search" placeholder="Search                    🔍">
+                </li>
               <!-- ログインしていない時 -->
               <% else %>
-              <li>
-                <%= link_to ' About', about_path %>
-              </li>
-              <li>
-                <%= link_to ' 商品一覧', items_path %>
-              </li>
-              <li>
-                <%= link_to ' 新規登録', new_customer_registration_path %>
-              </i>
-              <li>
-                <%= link_to ' ログイン', new_customer_session_path %>
-              </li>
-              <li>
-                <input name="search" placeholder="Search                    🔍">
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </nav>
-    </header>
+                <li>
+                  <%= link_to ' About', about_path %>
+                </li>
+                <li>
+                  <%= link_to ' 商品一覧', items_path %>
+                </li>
+                <li>
+                  <%= link_to ' 新規登録', new_customer_registration_path %>
+                </i>
+                <li>
+                  <%= link_to ' ログイン', new_customer_session_path %>
+                </li>
+                <li>
+                  <input name="search" placeholder="Search                    🔍">
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </nav>
+      </header>
 
       <main id="content">
         <%= yield %>
       </main>
 
-    <footer>
-      <div class="container mt-5">
-        <div class="row">
-          <div class="mx-auto">
-            <p> </p>
-          </div>
-        </div>
+      <!-- footer デザイン分岐 -->
+      <% if request.fullpath.include? "admin"  %>
+        <footer class="footer text-white bg-dark">
+      <% else%>
+        <footer class="footer text-white", style="background-color: #432c28;">
+      <% end %>
+
+      <div class="container text-center mt-3">
+        <p>©  inc.</p>
       </div>
     </footer>
-
   </body>
 </html>
