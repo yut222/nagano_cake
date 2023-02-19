@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     # 注文
     resources :orders, only: [:new, :confirm, :thanks, :create, :index, :show]
     # 登録先住所
-    resources :addresses, only: [:index, :edi, :createt, :update, :destroy]
+    resources :addresses, only: [:index, :edit, :create, :update, :destroy]
     get "/customers/quit" => "customers#quit"
     patch "/customers/out" => "customers#out"
 

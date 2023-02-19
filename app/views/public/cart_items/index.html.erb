@@ -21,9 +21,8 @@
               <th colspan="1"></th>
             </tr>
           </thead>
-
-          <% @cart_items.each do |cart_item| %>
-            <tbody>
+          <tbody>
+            <% @cart_items.each do |cart_item| %>
               <tr class="brown-border">
                 <td class="align-middle">
                   <% if cart_item.item.image.attached? %>
@@ -37,7 +36,7 @@
                 <td class="align-middle" style="width: 130px;">
                   <%= form_for(cart_item) do |f| %>
                   <div class="row">
-                    <%= f.number_field :amount, min:1,class: "col-6" %>
+                    <%= f.select :amount, *[1..10],class: "col-6" %>
                     <%= f.submit "変更", class: "btn btn-sm btn-outline-danger offset-1 col-4" %>
                   </div>
                   <% end %>
@@ -49,8 +48,8 @@
 
                 <td class="align-middle"><%= link_to "削除する", cart_item_path(cart_item), method: :delete, class: "btn btn-sm btn-danger" %></td>
               </tr>
-            </tbody>
-          <% end %>
+            <% end %>
+          </tbody>
         </table>
       </div>
     </div>

@@ -3,12 +3,16 @@ class Public::CartItemsController < ApplicationController
   before_action :cart_item, only: [:update, :destroy]
   before_action :authenticate_customer!
 
+  #
+
   def index
     @cart_items = current_customer.cart_items.all
     @total_price = calculate(current_customer)
+    # @item = cart_items.items.find_by(id: 1) カート内で同じ商品があれば個数を増やす find_byを使う
   end
 
   def create
+    # binding.pry  デバッグ用 Gem「pry-byebug」を使って確認(カリキュラム)
     @cart_item = CartItem.new(cart_item_params)
     @cart_item.customer_id = current_customer.id
 
@@ -45,6 +49,11 @@ class Public::CartItemsController < ApplicationController
 
   def cart_item_params
     params.require(:cart_item).permit(:customer_id, :item_id, :amount, :order_id, :praice, :making_status)
+  end
+
+  ## 消費税を求めるメソッド
+  def with_tax_price
+      (price * 1.1).floor
   end
 
   def calculate(user)
