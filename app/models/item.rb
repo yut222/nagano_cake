@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_many :order_details, dependent: :destroy
   # has_many :orders, through: :order_details
+  belongs_to :item  #この記述いる？=>カート同商品を一つとしてカウントするために作成中
 
   # ActiveStrage/画像を持たせる
   has_one_attached :image

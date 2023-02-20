@@ -9,21 +9,26 @@ class Public::CartItemsController < ApplicationController
     @cart_items = current_customer.cart_items.all
     @total_price = calculate(current_customer)
     # @item = cart_items.items.find_by(id: 1) カート内で同じ商品があれば個数を増やす find_byを使う
+    # byebug
   end
 
+  # カート商品を追加・保存
   def create
-    # binding.pry  デバッグ用 Gem「pry-byebug」を使って確認(カリキュラム)
-    @cart_item = CartItem.new(cart_item_params)
-    @cart_item.customer_id = current_customer.id
-
-
-    if @cart_item.save!  # ビックリマークとつけるとエラーがそこで止まってくれる
-      flash[:notice] = "#{@cart_item.item.name}をカートに追加しました。"
+      cart_item = current_customer.cart_items.new(cart_item_params)
+      
+      
+      # もし元々カート内に「同じ商品」がある場合、「数量を追加」更新・保存する
+      #ex.バナナ２個、バナナ２個ではなく　バナナ「4個」にしたい
+      if current_customer.cart_items.find_by(item_id: params[:cart_item][:item_id]).present?
+                        #元々カート内にあるもの「item_id」
+                        #今追加した　　　　　　　params[:cart_item][:item_id])
+          cart_item = current_customer.cart_items.find_by(item_id: params[:cart_item][:item_id])
+          cart_item.amount += params[:cart_item][:amount].to_i
+         #cart_item.amountに今追加したparams[:cart_item][:amount]を加える
+         #.to_iとして数字として扱う
+      end
+      cart_item.save
       redirect_to cart_items_path
-    else
-      flash[:alert] = "個数を選択してください"
-      render "index"
-    end
   end
 
   def update
@@ -48,7 +53,7 @@ class Public::CartItemsController < ApplicationController
     private
 
   def cart_item_params
-    params.require(:cart_item).permit(:customer_id, :item_id, :amount, :order_id, :praice, :making_status)
+    params.require(:cart_item).permit(:item_id, :amount, :price)
   end
 
   ## 消費税を求めるメソッド
@@ -63,4 +68,6 @@ class Public::CartItemsController < ApplicationController
     end
     return (total_price * 1.1).floor
   end
+
+
 end

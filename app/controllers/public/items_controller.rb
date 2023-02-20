@@ -21,8 +21,10 @@ class Public::ItemsController < ApplicationController
 
     private
 
-  def cart_item_params
-    params.require(:cart_item).permit(:item_id, :amount, :image_id)
+
+  # カートに同商品を一つとしてカウント用
+  def item_params
+   params.require(:items).permit(:genre_id, :name, :introduction, :genre_id, :price)
   end
 
 end

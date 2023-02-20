@@ -44,7 +44,7 @@ end
     @order.address     = current_customer.address
     @order.name        = current_customer.last_name + current_customer.first_name
 
-  elsif params[:order][:selected_address] == "2"
+  elsif params[:order][:address_id] == "2"
     @address = Address.find(params[:order][:address_id])
     @order.postal_code = @address.postal_code
     @order.address = @address.address
@@ -83,7 +83,7 @@ end
   end
 
   def address_params
-    params.require(:order).permit(:name, :postal_code, :address)
+    params.require(:order).permit(:name, :postal_code, :address, :selected_address, :address_id)
   end
 
 end
