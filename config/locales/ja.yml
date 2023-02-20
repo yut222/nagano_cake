@@ -5,19 +5,12 @@
         payment_method: # カラム名（payment_methodカラムに対して）
           credit_card: "クレジットカード"
           transfer: "銀行振込"
-
-  ja:
-    enums:
-      order: # モデル名（Orderモデルに対して）
         status: # カラム名（stasusカラムに対して）
           wait: "入金待ち"
           check: "入金確認"
           make: "製作中"
           delivery: "発送準備中"
           delivery_done: "発送済み"
-
-  ja:
-    enums:
       order_detail: # モデル名（OrderDetailモデルに対して）
         making_status: # カラム名（making_statusカラムに対して）
           make_no: "製作不可"
