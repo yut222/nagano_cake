@@ -4,7 +4,7 @@ class Public::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
   def after_sign_in_path_for(resource_or_scope)
-    customers_path  # 顧客側
+    root_path  # 顧客側
   end
 
     #ログアウト時のパスの変更

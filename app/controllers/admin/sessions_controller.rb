@@ -4,7 +4,7 @@ class Admin::SessionsController < Devise::SessionsController
 
   # devise機能/sign_in時の遷移先指定:管理者トップページ
   def after_sign_in_path_for(resource)
-    admin_items_path  # 商品一覧へ
+    admin_root_path  # 管理者トップページへ
   end
 
   # devise機能/sign_out時の遷移先指定
