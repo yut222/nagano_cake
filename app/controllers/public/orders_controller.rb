@@ -49,9 +49,11 @@ end
     @order.postal_code = @address.postal_code
     @order.address = @address.address
     @order.name = @address.name
-  end
 
 #   birding.pry
+  end
+
+
 
 # viewに記述(each,商品合計,請求金額)
 #    @sum = 0
