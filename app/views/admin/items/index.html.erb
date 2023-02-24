@@ -1,45 +1,49 @@
 <div class="container">
+  <div class="row my-4">
+    <div class="col-sm-12 px-sm-0">
 
-  <h2>商品一覧</h2>
 
-  <div class="text-right index-new">
-    <%= link_to new_admin_item_path do %>
-      <button type="button" class="btn btn-primary rounded-circle p-0" style="width:2rem;height:2rem;">＋</button>
-    <% end %>
-  </div>
+      <div class="d-flex bd-highlight mb-3">
+        <div class="mr-auto p-2 bd-highlight"><h3>商品一覧</h3></div>
+        <div class="p-2 bd-highlight"><%= link_to new_admin_item_path do %>
+            <button type="button" class="btn btn-outline-secondary rounded-circle p-0" style="width:2rem;height:2rem;">＋</button>
+          <% end %></div>
+      </div>
 
-  <table class="table table-hover">
-    <thead>
-      <tr class="active">
-        <th>商品ID</th>
-        <th>商品名</th>
-        <th>税抜価格</th>
-        <th>ジャンル</th>
-        <th>ステータス</th>
-        <th></th>
-      </tr>
-    </thead>
+      <table class="table table-hover">
+        <thead>
+          <tr class="active">
+            <th>商品ID</th>
+            <th>商品名</th>
+            <th>税抜価格</th>
+            <th>ジャンル</th>
+            <th>ステータス</th>
+            <th></th>
+          </tr>
+        </thead>
 
-    <tbody>
-      <% @items.each do |item| %>
-      <tr>
-        <td><%= item.id %></td>
-        <td><%= link_to item.name, admin_item_path(item) %></td>
-        <td><%= item.price %></td>
-        <td><%= item.genre.name %></td>
-        <td>
-          <% if item.is_active == true %>
-            販売中
-          <% else %>
-            販売停止中
+        <tbody>
+          <% @items.each do |item| %>
+          <tr>
+            <td><%= item.id %></td>
+            <td><%= link_to item.name, admin_item_path(item) %></td>
+            <td><%= item.price.to_s(:delimited, delimiter: ',') %></td>
+            <td><%= item.genre.name %></td>
+            <td>
+              <% if item.is_active == true %>
+                <p class="font-weight-bold text-success">販売中</p>
+              <% else %>
+                <p class="font-weight-bold text-black-50">販売停止中</p>
+              <% end %>
+            </td>
+          </tr>
           <% end %>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
+        </tbody>
+      </table>
 
+      <!-- kaminari install -->
+      <%= paginate @items %>
 
-  </table>
-  <!-- kaminari install -->
-  <%= paginate @items %>
+    </div>
+  </div>
 </div>

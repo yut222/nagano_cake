@@ -32,16 +32,16 @@
                 </li>
 
                 <div class="text-end">
-                  <%= link_to ' マイページ', customers_path, class:"btn btn-outline-secondary m-2" %>
+                  <%= link_to ' マイページ', customers_path, class:"btn btn-outline-secondary mr-2" %>
                 </div>
                 <div class="text-end">
-                  <%= link_to ' 商品一覧', items_path, class:"btn btn-outline-secondary m-2" %>
+                  <%= link_to ' 商品一覧', items_path, class:"btn btn-outline-secondary mr-2" %>
                 </div>
                 <div class="text-end">
-                  <%= link_to ' カート', cart_items_path, class:"btn btn-outline-secondary m-2" %>
+                  <%= link_to ' カート', cart_items_path, class:"btn btn-outline-secondary mr-2" %>
                 </div>
                 <div class="text-end">
-                  <%= link_to ' ログアウト', destroy_customer_session_path, method: :delete, class:"btn btn-outline-secondary m-2" %>
+                  <%= link_to ' ログアウト', destroy_customer_session_path, method: :delete, class:"btn btn-outline-secondary mr-2" %>
                 </div>
 
                 <li class="p-2 text-dark">
@@ -51,19 +51,19 @@
               <!-- 管理者でログインしている時 -->
               <% elsif admin_signed_in?%>
                 <div class="text-end">
-                  <%= link_to ' 商品一覧', admin_items_path, class:"btn btn-outline-secondary m-2" %>
+                  <%= link_to ' 商品一覧', admin_items_path, class:"btn btn-outline-secondary mr-2" %>
                 </div>
                 <div class="text-end">
-                  <%= link_to ' 会員一覧', admin_customers_path, class:"btn btn-outline-secondary m-2" %>
+                  <%= link_to ' 会員一覧', admin_customers_path, class:"btn btn-outline-secondary mr-2" %>
                 </div>
                 <div class="text-end">
-                  <%= link_to ' 注文履歴一覧', admin_path, class:"btn btn-outline-secondary m-2" %>
+                  <%= link_to ' 注文履歴一覧', admin_path, class:"btn btn-outline-secondary mr-2" %>
                 </div>
                 <div class="text-end">
-                  <%= link_to ' ジャンル一覧', admin_genres_path, class:"btn btn-outline-secondary m-2" %>
+                  <%= link_to ' ジャンル一覧', admin_genres_path, class:"btn btn-outline-secondary mr-2" %>
                 </div>
                 <div class="text-end">
-                  <%= link_to ' ログアウト', destroy_admin_session_path, method: :delete, class:"btn btn-outline-secondary m-2" %>
+                  <%= link_to ' ログアウト', destroy_admin_session_path, method: :delete, class:"btn btn-outline-secondary mr-2" %>
                 </div>
 
                 <li class="p-2 text-dark">
@@ -73,16 +73,16 @@
               <!-- ログインしていない時 -->
               <% else %>
                 <div class="text-end">
-                  <%= link_to ' About', about_path, class: "btn btn-outline-secondary m-2" %>
+                  <%= link_to ' About', about_path, class: "btn btn-outline-secondary mr-2" %>
                 </div>
                 <div class="text-end">
-                  <%= link_to ' 商品一覧', items_path, class: "btn btn-outline-secondary m-2" %>
+                  <%= link_to ' 商品一覧', items_path, class: "btn btn-outline-secondary mr-2" %>
                 </div>
                 <div class="text-end">
-                  <%= link_to ' 新規登録', new_customer_registration_path, class:"btn btn-outline-secondary m-2" %>
+                  <%= link_to ' 新規登録', new_customer_registration_path, class:"btn btn-outline-secondary mr-2" %>
                 </div>
                 <div class="text-end">
-                  <%= link_to ' ログイン', new_customer_session_path, class:"btn btn-outline-secondary m-2" %>
+                  <%= link_to ' ログイン', new_customer_session_path, class:"btn btn-outline-secondary mr-2" %>
                 </div>
 
                 <li class="p-2 text-dark">
