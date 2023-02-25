@@ -1,40 +1,41 @@
-
+<div class="container">
+  <div class="row my-4">
     <!-- ジャンル検索サイドバー / 共通化 -->
     <%= render "sidebar", genres: @genres %>
 
-<div class="row">
-
-    <!-- 画像 -->
-    <div class="col-xs-4 col-xs-offset-2 product-show">
-      <% if @item.image.attached? %>
-        <%= image_tag @item.image, size: "340x220" %>
-      <% else %>
-        <%= image_tag "no_image.jpg" %>
-      <% end %>
-    </div>
-
-    <!-- タイトル -->
-    <div class="col-xs-6 product-show">
-      <div class="product-description">
-        <div class="field product-name">
-          <h2><%= @item.name %></h2>
-        </div>
-        <!-- 説明 -->
-        <div class="field">
-          <%= @item.introduction %>
-        </div>
+    <div class="d-flex bd-highlight">
+      <!-- 画像 -->
+      <div class="col-md-1 offset-md-1">
+        <% if @item.image.attached? %>
+          <%= image_tag @item.image, size: "340x220" %>
+        <% else %>
+          <%= image_tag "no_image.jpg" %>
+        <% end %>
+      </div>
+      <!-- タイトル -->
+      <div class="col-md-12 offset-md-5">
+        <table>
+          <tr>
+            <th><h2><%= @item.name %></h2></th>
+          </tr>
+          <!-- 説明 -->
+          <tr>
+            <th><h3><%= @item.introduction %></h3></th>
+          </tr>
+        </table>
         <!-- 価格 -->
-        <h3 class="item-price">
+        <div class="item-price mt-4">
           <% if @item.is_active == true %>  <!--商品販売中の場合-->
-            <h4>¥<%= (@item.price * 1.1).to_i.to_s(:delimited, delimiter: ',') %><span>（税込）</span></h4>
+            <h4>¥<%= (@item.price * 1.1).to_i.to_s(:delimited, delimiter: ',') %>（税込）</h4>
             <%= form_with model:@cart_item, url: cart_items_path, method: :post do |f| %>
-              <%= f.hidden_field :item_id, value: @item.id %>
+              <%= f.hidden_field :item_id, value: @item.id%>
               <%= f.select :amount, *[1..10], include_blank: "個数選択" %>
-              <%= f.submit "カートに入れる", class: "btn btn-success" %>
+              <%= f.submit "カートに入れる", class:"btn btn-success ml-5 mt-2" %>
             <% end %>
           <% else %>
             <h4>売り切れ</h4>
           <% end %>
+        </div>
       </div>
     </div>
 
@@ -42,4 +43,5 @@
       <%= flash[:into_cart_error] %>
     </div>
 
+  </div>
 </div>
