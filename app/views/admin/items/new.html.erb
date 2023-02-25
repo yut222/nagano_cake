@@ -1,62 +1,60 @@
 <div class="container">
   <div class="row my-4">
     <div class="col-sm-12 px-sm-0">
-      <h2>商品新規登録</h2>
+      <h3>商品新規登録</h3>
 
+      <div class="row offset-sm-2 mt-4">
+        <%= form_with model: @item, url: admin_items_path, method: :post do |f| %>
+          <table class="table table-borderless">
+            <tr>
+              <th><%= f.label :商品画像 %></th>
+              <td><%= f.file_field :image, class:"form-control-file offset-sm-1" %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :商品名 %></th>
+              <td><%= f.text_field :name, placeholder:" 商品名", class:"col-sm-8 offset-sm-1 px-sm-0" %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :商品説明 %></th>
+              <td><%= f.text_area :introduction, size: "70x7", placeholder:" ここに説明文を記述します", class: "col-sm-8 offset-sm-1 px-sm-0" %></td>
+            </tr>
+            <tr>
+              <th>
+                <%= f.label :ジャンル %>
+              </th>
+              <td>
+                <div class="col-sm-8 offset-sm-1 px-sm-0">
+                  <%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => " --選択してください-- " %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th><%= f.label :税抜価格 %></th>
+              <td><%= f.text_field :price, placeholder:" 1000", class: "col-sm-8 offset-sm-1 px-sm-0" %> 円</td>
+            </tr>
+            <tr>
+              <th><%= f.label :販売ステータス %></th>
+              <td>
+                <%= f.radio_button :is_active, true, checked: true, class: "offset-sm-1" %>
+                <%= f.label :is_active, "販売中", class:"px-sm-0" %>
+                <%= f.radio_button :is_active, false, class:"offset-sm-1" %>
+                <%= f.label :is_active, "販売停止中", class:"px-sm-0" %>
+              </td>
+            </tr>
+          </table>
 
-    <div class="row offset-sm-2">
-      <%= form_with model: @item, url: admin_items_path, method: :post do |f| %>
-        <table class="table table-borderless">
-          <tr>
-            <th><%= f.label :商品画像 %></th>
-            <td><%= f.file_field :image, class:"form-control-file offset-sm-1" %></td>
-          </tr>
-          <tr>
-            <th><%= f.label :商品名 %></th>
-            <td><%= f.text_field :name, placeholder:" 商品名", class:"col-sm-8 offset-sm-1 px-sm-0" %></td>
-          </tr>
-          <tr>
-            <th><%= f.label :商品説明 %></th>
-            <td><%= f.text_area :introduction, size: "70x7", placeholder:" ここに説明文を記述します", class: "col-sm-8 offset-sm-1 px-sm-0" %></td>
-          </tr>
-          <tr>
-            <th>
-              <%= f.label :ジャンル %>
-            </th>
-            <td>
-              <div class="col-sm-8 offset-sm-1 px-sm-0">
-                <%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => "--選択してください--" %>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th><%= f.label :税抜価格 %></th>
-            <td><%= f.text_field :price, placeholder:" 1000", class: "col-sm-8 offset-sm-1 px-sm-0" %> 円</td>
-          </tr>
-
-          <tr>
-            <th><%= f.label :販売ステータス %></th>
-            <td>
-              <%= f.radio_button :is_active, true, checked: true, class: "offset-sm-1" %>
-              <%= f.label :is_active, "販売中", class:"px-sm-0" %>
-              <%= f.radio_button :is_active, false, class:"offset-sm-1" %>
-              <%= f.label :is_active, "販売停止中", class:"px-sm-0" %>
-            </td>
-          </tr>
-        </table>
-
-        <div class="form-group">
-          <div class="row">
-            <div class="col-sm-3 px-sm-0 offset-sm-5">
-              <div class="actions">
-                <%= f.submit "新規登録", class:"btn btn-success px-4" %>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-3 px-sm-0 offset-sm-5">
+                <div class="actions">
+                  <%= f.submit "新規登録", class:"btn btn-success px-4" %>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-      <% end %>
-
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
