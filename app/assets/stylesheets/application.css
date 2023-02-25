@@ -13,11 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+/* kaminari ページネーション*/
 .page-links {
   position: relative;
   display: block;
   padding: 0.5rem 0.75rem;
   line-height: 1.25;
-  color: #000;
+  color: #007bff;
   background-color: #fff;
 }
