@@ -6,7 +6,7 @@
 
     <div class="row offset-sm-2">
       <%= form_with model: @item, url: admin_items_path, method: :post do |f| %>
-        <table>
+        <table class="table table-borderless">
           <tr>
             <div class="row">
               <div class="form-group col-sm-3 px-sm-0 offset-sm-3">
@@ -15,7 +15,6 @@
               </div>
             </div>
           </tr>
-
 
           <tr>
             <div class="row">
@@ -38,8 +37,14 @@
           <tr>
             <div class="row">
               <div class="form-group col-sm-3 px-sm-0 offset-sm-3">
-                <th><%= f.label :ジャンル, class:"mb-2" %></th>
-                <td><%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => "--選択してください--", class:"col-sm-8 offset-sm-1 px-sm-0 mb-2" %></td>
+                <th>
+                  <%= f.label :ジャンル %>
+                </th>
+                <td>
+                  <div class="col-sm-8 offset-sm-1 px-sm-0 mb-2">
+                    <%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => "--選択してください--" %>
+                  </div>
+                </td>
               </div>
             </div>
           </tr>
@@ -66,37 +71,20 @@
               </div>
             </div>
           </tr>
+        </table>
 
-          <tr>
-            <div class="row">
-              <div class="form-group col-sm-3 px-sm-0 offset-sm-5 mt-4">
-                <th><div class="actions">
-                  <%= f.submit "新規登録", class:"btn btn-success px-4" %>
-                </div></th>
-
-              </div>
-            </div>
-
-
-            <div class="form-group">
-              <th><%= f.submit "新規登録", class:"btn btn-success col-sm-10 offset-md-1 px-sm-0 mt-4" %></th>
-            </div>
-          </tr>
-
-          <div class="form-group">
-            <div class="row">
-              <div class="col-sm-3 px-sm-0 offset-sm-5 mt-4">
-                <div class="actions">
-                  <%= f.submit "新規登録", class:"btn btn-success px-4" %>
-                </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-3 px-sm-0 offset-sm-5">
+              <div class="actions">
+                <%= f.submit "新規登録", class:"btn btn-success px-4" %>
               </div>
             </div>
           </div>
+        </div>
 
-        </table>
       <% end %>
 
-    </div>
     </div>
   </div>
 </div>
