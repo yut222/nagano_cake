@@ -1,91 +1,95 @@
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <h2>注文履歴詳細</h2>
+  <div class="row my-4">
+    <div class="col-sm-12 px-sm-0">
+      <h3>注文履歴詳細</h3>
+
       <!-- 購入詳細情報 -->
-      <table class="table table-borderless">
-        <tbody>
-          <tr>
-            <th scope="row">購入者</th>
+      <div class="row col-sm-5">
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <th>購入者</th>
               <td><%= link_to @order.customer.last_name + @order.customer.first_name , admin_customer_path(@order.customer.id) %></td>
-          </tr>
-          <tr>
-            <th scope="row">注文日</th>
-              <td><%= @order.created_at.strftime("%Y/%m/%d") %></td>
-          </tr>
-          <tr>
-            <th scope="row">配送先</th>
-          　　  <td>
-                <p>〒<%= @order.postal_code %> <%= @order.address %></p>
-                <p><%= @order.customer.last_name %> <%= @order.customer.first_name %></p>
-              </td>
-          </tr>
-          <tr>
-            <th scope="row">支払方法</th>
-            <td><%= @order.payment_method_i18n %></td>
-          </tr>
-          <tr>
-            <th scope="row">注文ステータス</th>
-            <td>
-              <%= form_with model: @order, url: admin_order_path(@order), method: :patch do |f| %>
-                <%= f.select :status, Order.statuses_i18n.invert ,style: "margin-top:10px;#" %>  <!--ステータス選択 enum -->
-                <%= f.submit "更新",class:"btn btn-success" %>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-8" style="margin-top: 50px;">
-        <table class="table table-bordered">
-          <thead>
-            <tr class="table-head" style="background-color:#F5F5F5;">
-              <th scope="col">商品名</th>
-              <th scope="col">単価（税込）</th>
-              <th scope="col">数量</th>
-              <th scope="col">小計</th>
-              <th scope="col">製作ステータス</th>
             </tr>
-          </thead>
-          <tbody>
-            <% @order_details.each do |order_detail| %>
-              <tr>
-                <td><%= order_detail.item.name %></td>
-                <td><%= (order_detail.price * 1.1).floor %></td>
-                <td><%= order_detail.amount %></td>
-                <td><%= (order_detail.price * 1.1).floor * order_detail.amount %></td>
-                <td>
-                  <%= form_with model: order_detail, url: admin_order_detail_path(order_detail.id), method: :patch do |f|%>
-                     <%= f.select :making_status, OrderDetail.making_statuses_i18n.invert %>
-                    <%= f.submit "更新",class:"btn btn-success" %>
-                  <% end %>
+            <tr>
+              <th>注文日</th>
+                <td><%= @order.created_at.strftime("%Y/%m/%d") %></td>
+            </tr>
+            <tr>
+              <th>配送先</th>
+            　　  <td>
+                  <p>〒<%= @order.postal_code %> <%= @order.address %></p>
+                  <p><%= @order.customer.last_name %> <%= @order.customer.first_name %></p>
                 </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-xs-4"style="margin-top: 120px;">
-        <table class="table">
-          <tbody>
-            <tr>
-              <th scope="row">商品合計</th>
-              <td><%= @sum %>円</td>
             </tr>
             <tr>
-              <th scope="row">送料</th>
-              <td><%= @order.shipping_cost %>円</td>
+              <th>支払方法</th>
+              <td><%= @order.payment_method_i18n %></td>
             </tr>
             <tr>
-              <th scope="row">請求金額合計</th>
-              <td><%= @sum + @order.shipping_cost %>円</td>
+              <th>注文ステータス</th>
+              <td>
+                <%= form_with model: @order, url: admin_order_path(@order), method: :patch do |f| %>
+                  <%= f.select :status, Order.statuses_i18n.invert ,style: "margin-top:10px;#" %>  <!--ステータス選択 enum -->
+                  <%= f.submit "更新", class:"btn btn-success ml-4 mb-1" %>
+                <% end %>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
 
+      <div class="row">
+        <div class="col-sm-8" style="margin-top: 50px;">
+          <table class="table table-bordered">
+            <thead>
+              <tr class="table-head">
+                <th>商品名</th>
+                <th>単価（税込）</th>
+                <th>数量</th>
+                <th>小計</th>
+                <th>製作ステータス</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @order_details.each do |order_detail| %>
+                <tr>
+                  <td><%= order_detail.item.name %></td>
+                  <td><%= (order_detail.price * 1.1).floor %></td>
+                  <td><%= order_detail.amount %></td>
+                  <td><%= (order_detail.price * 1.1).floor * order_detail.amount %></td>
+                  <td>
+                    <%= form_with model: order_detail, url: admin_order_detail_path(order_detail.id), method: :patch do |f|%>
+                       <%= f.select :making_status, OrderDetail.making_statuses_i18n.invert %>
+                      <%= f.submit "更新", class:"btn btn-success ml-4 mb-1" %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-xs-4 ml-5" style="margin-top: 90px;">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row">商品合計</th>
+                <td><%= @sum %>円</td>
+              </tr>
+              <tr>
+                <th scope="row">送料</th>
+                <td><%= @order.shipping_cost %>円</td>
+              </tr>
+              <tr>
+                <th scope="row">請求金額合計</th>
+                <td><%= @sum + @order.shipping_cost %>円</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
