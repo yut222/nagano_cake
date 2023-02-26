@@ -3,67 +3,56 @@
     <div class="col-md-12 px-sm-0">
       <h3>配送先登録/一覧</h3>
 
+      <%= form_with model: @address, url: addresses_path, method: :post do |f| %>
+        <div class="col-md-8">
+          <%= f.label :"郵便番号(ハイフンなし)" ,class: "col-md-4 control-label" %>
+          <%= f.text_field :postal_code, class: "col-md-3 form-control-static postal_code" %>
+        </div>
 
-        <%= form_with model: @address, url: addresses_path, method: :post do |f| %>
+        <div class="col-md-8">
+          <%= f.label :"住所" , class:"col-md-4 control-label" %>
+          <%= f.text_field :address, class:"col-md-6 form-control-static address" %>
+        </div>
 
-            <div class="col-md-8">
-                <%= f.label :"郵便番号(ハイフンなし)" ,class: "col-md-4 control-label" %>
-                <%= f.text_field :postal_code, class: "col-md-3 form-control-static postal_code" %>
-            </div>
-
-            <div class="col-md-8">
-                <%= f.label :"住所" , class:"col-md-4 control-label" %>
-                <%= f.text_field :address, class:"col-md-6 form-control-static address" %>
-            </div>
-
-            <div class="col-md-8">
-                <%= f.label :"宛名" , class:"col-md-4 control-label" %>
-                <%= f.text_field :name, class:"col-md-3 form-control-static name mr-5" %>
-
-
-              <%= f.submit '新規登録', class:'col-md-2 btn btn-success ml-5' %>
-            </div>
-
-
-          </div>
-        <% end %>
-
+        <div class="col-md-8">
+          <%= f.label :"宛名" , class:"col-md-4 control-label" %>
+          <%= f.text_field :name, class:"col-md-3 form-control-static name mr-5" %>
+          <%= f.submit '新規登録', class:'col-md-2 btn btn-success ml-5' %>
+        </div>
+      <% end %>
 
       <div class="col-md-8 mt-5">
+        <% if @addresses.present? %>
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr class="info">
+                <th>郵便番号</th>
+                <th>住所</th>
+                <th>宛名</th>
+              </tr>
+            </thead>
 
-          <% if @addresses.present? %>
-            <table class="table table-hover table-bordered">
-              <thead>
-                <tr class="info">
-                  <th>郵便番号</th>
-                  <th>住所</th>
-                  <th>宛名</th>
-
+            <tbody>
+              <% @addresses.each do |address| %>
+                <tr id="destroy-<%= address.id %>">
+                  <td>
+                    <%= address.postal_code %>
+                  </td>
+                  <td class="text-left">
+                    <%= address.address %>
+                  </td>
+                  <td class="text-left">
+                    <%= address.name %>
+                  </td>
+                  <td>
+                    <%= link_to "編集する",edit_address_path(address), class:"btn btn-primary mr-2" %>
+                    <%= link_to "削除する",address_path(address), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, remote: true, class:"btn btn-danger destroy_book_#{address.id}" %>
+                  </td>
                 </tr>
-              </thead>
-
-              <tbody>
-                <% @addresses.each do |address| %>
-                  <tr id="destroy-<%= address.id %>">
-                    <td>
-                      <%= address.postal_code %>
-                    </td>
-                    <td class="text-left">
-                      <%= address.address %>
-                    </td>
-                    <td class="text-left">
-                      <%= address.name %>
-                    </td>
-                    <td>
-                      <%= link_to "編集する",edit_address_path(address), class:"btn btn-primary mr-2" %>
-                      <%= link_to "削除する",address_path(address), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, remote: true, class:"btn btn-danger destroy_book_#{address.id}" %>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          <% end %>
-        </div>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
       </div>
 
     </div>
