@@ -1,13 +1,15 @@
+<div class="container">
+  <div class="row my-4">
+    <div class="col-md-12 px-sm-0">
+      <h3>注文履歴一覧</h3>
 
+      <div class="row mt-4">
 
-<div calss="row">
-  <div class="col-xs-12">
-    <h2 class="head-line title_h2 text-center">注文履歴一覧</h2>
       <% if @orders.present? %>
         <table class="table table-hover table-bordered table-condensed">
           <thead>
-            <tr class="info">
-              <th><i class="fas fa-calendar-day"></i>注文日</th>
+            <tr>
+              <th>注文日</th>
               <th>配送先</th>
               <th>注文商品</th>
               <th>支払金額</th>
@@ -18,27 +20,33 @@
           <tbody>
             <% @orders.each do |order| %>
               <tr>
+                <!--注文日-->
                 <td>
     		          <%= order.created_at.strftime('%Y/%m/%d') %>
     		        </td>
-    		        <td class="text-left">
+    		        <!--配送先-->
+    		        <td class="text-left", scope=col>
     		          〒<%= order.postal_code %><br>
     		          <%= order.address %><br>
     		          <%= order.name %>
     		        </td>
+    		        <!--注文商品-->
     		        <td>
     		          <% order.order_details.each do |order_detail| %>
     		          	<%= order_detail.item.name %><br>
     		          <% end %>
     		        </td>
+    		        <!--支払金額-->
     		        <td>
     		          <%= order.total_payment %>円
     		        </td>
+    		        <!--ステータス-->
     		        <td>
     		          <%= order.status_i18n %>
     		        </td>
+    		        <!--注文詳細-->
          	      <td>
-       	          <%= link_to "表示する", order_path(order), class: "glyphicon glyphicon-zoom-in btn btn-success" %>
+       	          <%= link_to "表示する", order_path(order), class: "glyphicon glyphicon-zoom-in btn btn-primary" %>
        	        </td>
               </tr>
             <% end %>
@@ -47,5 +55,9 @@
       <% else %>
         <p>注文履歴がありません。</p>
       <% end %>
+
+
+      </div>
     </div>
+  </div>
 </div>
