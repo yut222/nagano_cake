@@ -1,42 +1,41 @@
-    <!-- ジャンル検索サイドバー / 共通化 -->
-  	<%= render "sidebar", genres: @genres %>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 px-sm-0">
-          <h2>商品一覧(全<%= @items_all.count %>件)</h2>
-        </div>
+<div class="container">
+  <div class="row my-4">
+    <div class="d-flex bd-highlight col-md-12">
+      <div class="col-md-2">
+        <!-- ジャンル検索サイドバー / 共通化 -->
+      	<%= render "sidebar", genres: @genres %>
       </div>
 
-      <div class="row mt-3 mb-3 text-center text-xs-center text-sm-center text-md-left">
+      <div class="col-md-10">
+        <h2>商品一覧(全<%= @items_all.count %>件)</h2>
+
+        <div class="d-flex flex-wrap mt-4 mb-4">
         <% @items.each do |item| %>
-          <div class="col-xs-10 col-sm-10 col-md-6 col-lg-3">
-            <div class="card w-100 bg-transparent border-0" style="width: 18rem;">
+
+            <div class="mr-3">
 
               <%= link_to item_path(item.id) do %>
-                <p class="img-wrap">
                   <% if item.image.attached? %>  <!-- 条件分岐 -->
-                    <%= image_tag item.image, size: "180x130" %>
+                    <%= image_tag item.image, size: "200x150" %>
                   <% else %>
                     <%= image_tag "no_image.jpg" %>
                   <% end %>
-                </p>
               <% end %>
 
-              </div>
-
-              <div class="card-body">
-                <p class="item-details item-name card-text"><%= item.name %></p>
-                <% if item.is_active == true %>
-                  <p class="item-details card-text">¥<%= (item.price * 1.1).to_i.to_s(:delimited, delimiter: ',') %></p>
-                <% else %>
-                  <p class="text-danger font-weight-bold card-text">売り切れ</p>
-                <% end %>
-              </div>
-
+                <p><%= item.name %></p>
+                  <% if item.is_active == true %>
+                    <p class="item-details card-text">¥<%= (item.price * 1.1).to_i.to_s(:delimited, delimiter: ',') %></p>
+                  <% else %>
+                    <p class="text-danger font-weight-bold card-text">売り切れ</p>
+                  <% end %>
             </div>
-          </div>
-          <% end %>
-       </div>
-       <%= paginate(@items) %>
+        <% end %>
+      </div>
+
+      <div class="col-md-12 offset-md-6">
+        <%= paginate(@items) %>
+      </div>
+
     </div>
+  </div>
+</div>
