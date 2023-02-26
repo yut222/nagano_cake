@@ -65,8 +65,6 @@ end
 
 
   def thanks
-
-
   end
 
   def index

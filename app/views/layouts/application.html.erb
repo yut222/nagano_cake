@@ -14,7 +14,6 @@
 
   <body data-turbolinks="false">
     <div id="wrapper">
-
       <!-- headerの記述 -->
       <header class="shadow-sm px-sm-0">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -23,13 +22,20 @@
             <%= image_tag "LOGO.jpg", size: "100x50" %>
           <% end %>
 
+          <!--ハンバーガーメニュー表示-->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
           <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <!--<ul class="navbar-nav">-->
               <!-- 会員でログインしている時 -->
               <% if customer_signed_in? %>
-                <li class="p-2 text-dark">
+              <div>
+              <ul class="navbar-nav mx-auto">
+                <div class="p-2 text-dark mx-auto ">
                   ようこそ、<%= current_customer.last_name %>さん！
-                </li>
+                </div>
 
                 <div class="text-end">
                   <%= link_to ' マイページ', customers_path, class:"btn btn-outline-secondary mr-2" %>
@@ -43,13 +49,15 @@
                 <div class="text-end">
                   <%= link_to ' ログアウト', destroy_customer_session_path, method: :delete, class:"btn btn-outline-secondary mr-2" %>
                 </div>
-
-                <li class="p-2 text-dark">
+                </ul>
+                <div class="p-2 text-dark float-right">
                   <input name="search" placeholder="search                    🔍">
-                </li>
+                </div>
+              </div>
 
               <!-- 管理者でログインしている時 -->
               <% elsif admin_signed_in?%>
+              <ul class="navbar-nav">
                 <div class="text-end">
                   <%= link_to ' 商品一覧', admin_items_path, class:"btn btn-outline-secondary mr-2" %>
                 </div>
@@ -65,13 +73,13 @@
                 <div class="text-end">
                   <%= link_to ' ログアウト', destroy_admin_session_path, method: :delete, class:"btn btn-outline-secondary mr-2" %>
                 </div>
-
-                <li class="p-2 text-dark">
+                <div class="p-2 text-dark float-right">
                   <input name="search" placeholder="Search                    🔍">
-                </li>
+                </div>
 
               <!-- ログインしていない時 -->
               <% else %>
+              <ul class="navbar-nav">
                 <div class="text-end">
                   <%= link_to ' About', about_path, class: "btn btn-outline-secondary mr-2" %>
                 </div>
@@ -84,12 +92,11 @@
                 <div class="text-end">
                   <%= link_to ' ログイン', new_customer_session_path, class:"btn btn-outline-secondary mr-2" %>
                 </div>
-
-                <li class="p-2 text-dark">
+                <div class="p-2 text-dark float-right">
                   <input name="search" placeholder="Search                    🔍">
-                </li>
+                </div>
               <% end %>
-            </ul>
+            <!--</ul>-->
           </div>
         </nav>
       </header>
@@ -99,17 +106,17 @@
         <%= yield %>
       </main>
 
-      <!-- footer デザイン分岐 -->
-      <% if request.fullpath.include? "admin"  %>
-        <footer class="footer text-white bg-dark">
-      <% else%>
-        <footer class="footer text-white", style="background-color: #432c28;">
-      <% end %>
+    <!-- footer デザイン分岐 -->
+    <% if request.fullpath.include? "admin"  %>
+      <footer class="footer text-white bg-dark">
+    <% else%>
+      <footer class="footer text-white", style="background-color: #432c28;">
+    <% end %>
 
-        <div class="container text-center mt-3">
-          <p>©  inc.</p>
-        </div>
-      </footer>
+      <div class="container text-center mt-3">
+        <p>©  inc.</p>
+      </div>
+    </footer>
 
   </body>
 </html>
