@@ -1,10 +1,14 @@
 <div class="container">
   <strong><%= notice %></strong>
-  <div class="row">
+  <div class="row my-4">
+    <div class="d-flex bd-highlight col-md-12">
+      <div class="col-md-2">
     <!-- ジャンル検索サイドバー / 共通化 -->
     <%= render "public/items/sidebar", genres: @genres %>
+      </div>
 
 
+<div class="col-md-10">
     <div id="carouselExampleControls" class="carousel slide mx-auto" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -44,11 +48,11 @@
 
 
 <!-- 新着商品表示 -->
-      <div class="container new-item">
+
         <h2>新着商品</h2>
         <div class="row">
           <% @items.first(4).each do |item| %>
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-3">
               <%= link_to item_path(item.id) do %> <!-- 画像をクリックしたら商品詳細画面へ遷移 -->
                 <div class="img-wrap">
                   <% if item.image.attached? %>
@@ -58,20 +62,20 @@
                   <% end %>
                 </div>
               <% end %>
-              <p class="card-text"><%= item.name %></p>
-              <p class="card-text">￥<%= item.price.to_s(:delimited, delimiter: ',') %></p> <!-- 税込計算式/.floor => 浮動小数点数の切り捨てを行うためFloatクラスのfloorメソッドを使用 -->
+              <p class="item-details mt-2"><%= item.name %></p>
+              <p class="item-details mb-2">￥<%= item.price.to_s(:delimited, delimiter: ',') %></p> <!-- 税込計算式/.floor => 浮動小数点数の切り捨てを行うためFloatクラスのfloorメソッドを使用 -->
             </div>
           <% end %>
         </div>
-      </div>
 
 
-    <div class="row">
-      <div class="col-xs-9"></div>
-      <div class="col-xs-2">
+
+      <div class="col-md-12 offset-md-10">
         <p><%= link_to "全ての商品を見る＞", items_path %></p>
       </div>
     </div>
-
+      </div>
+  </div>
+</div>
   </div>
 </div>
