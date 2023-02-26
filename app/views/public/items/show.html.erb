@@ -7,7 +7,7 @@
       <!-- 画像 -->
       <div class="col-md-1 offset-md-1">
         <% if @item.image.attached? %>
-          <%= image_tag @item.image, size: "340x220" %>
+          <%= image_tag @item.image, size: "300x180" %>
         <% else %>
           <%= image_tag "no_image.jpg" %>
         <% end %>
