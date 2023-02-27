@@ -9,7 +9,7 @@ class Admin::OrdersController < ApplicationController
 
     # 下記３行は商品合計を出すため
     @sum = 0
-    @subtotals = @order_details.map { |order_detail| order_detail.price * order_detail.amount }
+    @subtotals = @order_details.map { |order_detail| (order_detail.price * 1.1).floor * order_detail.amount }
     @sum = @subtotals.sum
   end
 

@@ -52,7 +52,7 @@
               <td><%= order_detail.amount %></td>
               <td><%= ((order_detail.item.price * order_detail.amount).floor.to_s(:delimited, delimiter: ',')* 1.1) %></td>
             </tr>
-            <% @subtotals += (order_detail.item.price * 1.1).floor.to_s(:delimited, delimiter: ',') * order_detail.amount %>
+            <% @subtotals += (order_detail.item.price * 1.1).floor * order_detail.amount %>
             <% end %>
           </table>
         </div>
